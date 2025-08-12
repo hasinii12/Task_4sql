@@ -33,3 +33,35 @@ select title,price from books order by price Desc limit 10;
 select title,publication_year from books order by publication_year ASC limit 5;
 select title from books where rating is null;
 select title,publisher from books where publisher is not null;
+--Compute the total value of the current stock, based on price and quantity available.
+select sum(price*stock) as total_value from books
+
+--Categorize books into price bands such as “Budgetˮ, “Standardˮ, or “Premiumˮ based on pricing rules
+
+Select title, price,
+case when price < 20 then 'Budget'
+when price between 20 and 50 then 'Standard'
+else'Premium'
+end as category
+from books
+
+--Classify books as “Out of Stockˮ, “Low Stockˮ, or “In Stockˮ based on available quantity
+select distinct publication_year from books
+Select title, stock,
+case when stock = 0 then 'Out of Stock'
+when stock <67 then 'Low Stock'
+else 'In Stock'
+end as books_available
+from books
+
+--Group books into “Classicˮ, “Oldˮ, “Recentˮ, or “Newˮ categories depending on publication year
+--first knowing years present
+select distinct publication_year from books
+
+select title,publication_year,
+case when publication_year between 1900 and 1970 then 'Classic'
+when publication_year between 1971 and 1990 then 'old'
+when publication_year between 1991 and 2020 then 'Recent'
+else 'New'
+end as group_books
+from books
